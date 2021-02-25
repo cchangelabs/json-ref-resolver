@@ -75,6 +75,11 @@ export interface IResolverOpts {
    * This is passed through to some hook functions, such as `transformRef` and `Resolver.resolve`.
    */
   ctx?: any;
+
+  /**
+   * Maximum length of reference URI stack
+   */
+  maxUriDepth?: number;
 }
 
 /** The options that you can pass to `resolver.resolve(opts)` */

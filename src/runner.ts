@@ -44,6 +44,7 @@ export class ResolveRunner implements Types.IResolveRunner {
   public readonly transformDereferenceResult?: (
     opts: Types.IDereferenceTransformer,
   ) => Promise<Types.ITransformerResult>;
+  public readonly maxUriDepth: number;
 
   private _source: any;
 
@@ -56,6 +57,7 @@ export class ResolveRunner implements Types.IResolveRunner {
     this.depth = opts.depth || 0;
     this._source = source;
     this.resolvers = opts.resolvers || {};
+    this.maxUriDepth = opts.maxUriDepth || 100;
 
     const baseUri = opts.baseUri || '';
     let uri = new URI(baseUri || '');
@@ -363,7 +365,7 @@ export class ResolveRunner implements Types.IResolveRunner {
   };
 
   public atMaxUriDepth = () => {
-    return this.uriStack.length >= 100;
+    return this.uriStack.length >= this.maxUriDepth;
   };
 
   public lookupUri = async (opts: {
