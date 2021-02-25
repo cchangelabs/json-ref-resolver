@@ -422,6 +422,7 @@ export class ResolveRunner implements Types.IResolveRunner {
       dereferenceRemote: this.dereferenceRemote,
       dereferenceInline: this.dereferenceInline,
       ctx: this.ctx,
+      maxUriDepth: this.maxUriDepth,
     });
   };
 

@@ -24,6 +24,7 @@ export class Resolver {
   protected transformRef?: (opts: Types.IRefTransformer, ctx: any) => URI | any;
   protected parseResolveResult?: (opts: Types.IUriParser) => Promise<Types.IUriParserResult>;
   protected transformDereferenceResult?: (opts: Types.IDereferenceTransformer) => Promise<Types.ITransformerResult>;
+  protected maxUriDepth?: number;
 
   constructor(opts: Types.IResolverOpts = {}) {
     this.uriCache = opts.uriCache || new Cache();
@@ -35,6 +36,7 @@ export class Resolver {
     this.parseResolveResult = opts.parseResolveResult;
     this.transformDereferenceResult = opts.transformDereferenceResult;
     this.ctx = opts.ctx;
+    this.maxUriDepth = opts.maxUriDepth;
   }
 
   public resolve(source: any, opts: Types.IResolveOpts = {}): Promise<Types.IResolveResult> {
@@ -48,6 +50,7 @@ export class Resolver {
       dereferenceRemote: this.dereferenceRemote,
       parseResolveResult: this.parseResolveResult,
       transformDereferenceResult: this.transformDereferenceResult,
+      maxUriDepth: this.maxUriDepth,
       ...opts,
       ctx: Object.assign({}, this.ctx || {}, opts.ctx || {}),
     });
